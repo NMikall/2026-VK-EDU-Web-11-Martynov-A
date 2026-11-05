@@ -1,0 +1,56 @@
+{% extends 'core/layout/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-md-9">
+    <h1>Registration</h1>
+    <form action="#" method="GET">
+        <div class="input-group mb-1">
+            <span class="input-group-text" id="login">Login:</span>
+            <input type="text" class="form-control" placeholder="Your login" maxlength="20" aria-label="Username"
+                   aria-describedby="login" required>
+        </div>
+        <div class="form-text mb-3">Login is a maximum of 20 characters</div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="email">Email:</span>
+            <input type="email" class="form-control is-invalid" placeholder="Your email" maxlength="100"
+                   aria-label="email" aria-describedby="email" required>
+            <div class="invalid-feedback">You have entered an invalid email address</div>
+        </div>
+        <div class="input-group mb-1">
+            <span class="input-group-text" id="nick">NickName:</span>
+            <input type="text" class="form-control" placeholder="Your NickName" maxlength="20" aria-label="nick"
+                   aria-describedby="nick" required>
+        </div>
+        <div class="form-text mb-3">NickName is a maximum of 20 characters</div>
+        <div class="input-group mb-1">
+            <span class="input-group-text" id="password">Password:</span>
+            <input type="password" class="form-control" placeholder="Your password" maxlength="50" aria-label="password"
+                   aria-describedby="password" required>
+        </div>
+        <div class="form-text mb-3">Password is a maximum of 50 characters</div>
+        <div class="input-group mb-1">
+            <span class="input-group-text" id="password_repeat">Repeat password:</span>
+            <input type="password" class="form-control" placeholder="Your password" maxlength="50"
+                   aria-label="password_repeat" aria-describedby="password_repeat" required>
+        </div>
+        <div class="form-text mb-3">Password is a maximum of 50 characters</div>
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Upload avatar</label>
+            <div>
+                <img src="{% static 'core/static/img/avatar.webp' %}" alt="User's photo"
+                     width="100" height="100">
+            </div>
+            <input class="form-control" type="file" id="formFile" accept="image/*">
+        </div>
+        <div class="mb-3">
+            <input class="btn btn-primary" type="submit" value="Register!">
+        </div>
+        <div>
+            <h3>If you have an account</h3>
+            <a href="{% url 'login' %}"><h5>Log in</h5></a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

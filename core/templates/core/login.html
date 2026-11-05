@@ -1,0 +1,30 @@
+{% extends 'core/layout/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-md-9">
+    <h1>Log In</h1>
+    <form action="#" method="GET">
+        <div class="alert alert-danger" role="alert">
+            You have entered an incorrect email or password!
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="login">Login:</span>
+            <input type="text" class="form-control" placeholder="Your login" maxlength="20" aria-label="Username"
+                   aria-describedby="login" required>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="password">Password:</span>
+            <input type="password" class="form-control" placeholder="Your password" maxlength="50" aria-label="password"
+                   aria-describedby="password" required>
+        </div>
+        <div class="mb-3">
+            <input class="btn btn-primary" type="submit" value="Log in!">
+        </div>
+        <div>
+            <h3>Don't have account? </h3>
+            <a href="{% url 'signup' %}"><h5>create new account</h5></a>
+        </div>
+    </form>
+</div>
+{% endblock %}

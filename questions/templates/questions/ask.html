@@ -1,0 +1,31 @@
+{% extends 'questions/layout/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-md-9">
+    <h1>New Question</h1>
+    <form action="#" method="GET">
+        <div class="input-group mb-1">
+            <span class="input-group-text" id="title">Title:</span>
+            <input type="text" class="form-control" maxlength="100" placeholder="Your title" aria-label="title"
+                   aria-describedby="title" required>
+        </div>
+        <div class="form-text mb-3">Title is a maximum of 100 characters</div>
+        <div class="input-group mb-1">
+            <span class="input-group-text" id="text">Text:</span>
+            <textarea class="form-control" placeholder="Your text" maxlength="2000" aria-label="text"
+                      aria-describedby="text" required></textarea>
+        </div>
+        <div class="form-text mb-3">Text is a maximum of 2000 characters</div>
+        <div class="input-group mb-1">
+            <span class="input-group-text" id="tags">Tags:</span>
+            <input type="text" class="form-control" maxlength="100" placeholder="Tags. Example: moon, park, cool"
+                   aria-label="tags" aria-describedby="tags" required>
+        </div>
+        <div class="form-text mb-3">Tags are a maximum of 100 characters</div>
+        <div>
+            <input class="btn btn-primary" type="submit" value="Ask!">
+        </div>
+    </form>
+</div>
+{% endblock %}

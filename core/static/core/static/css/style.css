@@ -1,0 +1,24 @@
+.logo {
+    color: red;
+    font-size: 2.5rem;
+}
+
+main {
+    min-height: 60vh;
+    background-color: aquamarine;
+}
+
+header {
+    background-color:greenyellow;
+}
+
+footer {
+    background-color: aliceblue;
+}
+
+input[type="search"] {
+    padding-left: 28px;
+    border-radius: 15px;
+    border: none;
+    width: clamp(200px, 40vw, 650px);
+}
