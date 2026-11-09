@@ -9,28 +9,27 @@
             Failed to save changes. Please check the fields below
         </div>
         <div class="input-group mb-1">
-            <span class="input-group-text" id="login">Login:</span>
-            <input type="text" class="form-control" placeholder="Your login" aria-label="Username" maxlength="20"
-                   aria-describedby="login" value="Vaska">
+            <label class="input-group-text" for="login">Login:</label>
+            <input type="text" class="form-control" placeholder="Your login" maxlength="20" id="login" value="Vaska">
         </div>
         <div class="form-text mb-3">Login is a maximum of 20 characters</div>
         <div class="input-group mb-3">
-            <span class="input-group-text" id="email">Email:</span>
-            <input type="email" class="form-control is-invalid" placeholder="Your email" aria-label="email"
-                   maxlength="100" aria-describedby="email" value="example@mail.ru">
-            <div class="invalid-feedback">You have entered an invalid email address</div>
+            <label class="input-group-text" for="email">Email:</label>
+            <input type="email" class="form-control is-invalid" aria-describedby="email-error" aria-invalid="true"
+                   placeholder="Your email" maxlength="100" id="email" value="example@mail.ru">
+            <div class="invalid-feedback" id="email-error">You have entered an invalid email address</div>
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" id="nick">NickName:</span>
-            <input type="text" class="form-control" placeholder="Your NickName" aria-label="nick" maxlength="20"
-                   aria-describedby="nick" value="Makiato">
+            <label class="input-group-text" for="nick">NickName:</label>
+            <input type="text" class="form-control" placeholder="Your NickName" maxlength="20" id="nick"
+                   value="Makiato">
         </div>
         <div class="form-text mb-3">NickName is a maximum of 20 characters</div>
         <div class="mb-3">
             <label for="formFile" class="form-label">Upload avatar</label>
             <div>
-                <img src="{% static 'core/static/img/avatar.webp' %}" alt="User's photo"
-                     width="100" height="100">
+                <img src="{% static 'questions/static/img/avatar.webp' %}" alt="User's photo"
+                     width="100" height="100" class="avatar">
             </div>
             <input class="form-control" type="file" id="formFile" accept="image/*">
         </div>

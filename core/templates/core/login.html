@@ -6,18 +6,21 @@
     <h1>Log In</h1>
     <form action="#" method="GET">
         <div class="alert alert-danger" role="alert">
-            You have entered an incorrect email or password!
+            You have entered an incorrect login or password!
         </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="login">Login:</span>
-            <input type="text" class="form-control" placeholder="Your login" maxlength="20" aria-label="Username"
-                   aria-describedby="login" required>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="login">Login:</label>
+            <input type="text" class="form-control is-invalid" aria-invalid="true" aria-describedby="login-error"
+                   placeholder="Your login" maxlength="20" id="login" required>
+            <div class="invalid-feedback" id="login-error">Enter the login</div>
         </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="password">Password:</span>
-            <input type="password" class="form-control" placeholder="Your password" maxlength="50" aria-label="password"
-                   aria-describedby="password" required>
+        <div class="form-text mb-3">Login is a maximum of 20 characters</div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="password">Password:</label>
+            <input type="password" class="form-control" placeholder="Your password" maxlength="50" id="password"
+                   required>
         </div>
+        <div class="form-text mb-3">Password is a maximum of 50 characters</div>
         <div class="mb-3">
             <input class="btn btn-primary" type="submit" value="Log in!">
         </div>
