@@ -1,0 +1,31 @@
+{% load static %}
+<div>
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4 d-flex flex-column align-items-center">
+                <img class="avatar" src="{% static 'questions/static/img/avatar.webp' %}" alt="avatar" width="100" height="100">
+                <div class="d-flex flex-column align-items-center gap-1">
+                    <button type="button" class="btn btn-sm btn-outline-success" aria-label="Нравится"
+                            aria-pressed="false">▲
+                    </button>
+                    <span class="fw-bold">5</span>
+                    <button type="button" class="btn btn-sm btn-outline-danger" aria-label="Не нравится"
+                            aria-pressed="false">▼
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <a href="{% url 'question' question.id %}"><h2 class="card-title h5">{{ question.title }}</h2></a>
+                    <p class="card-text">{{ question.text }}</p>
+                    <div>
+                        <a href="{% url 'question' question.id %}" class="me-4">answer (3)</a>
+                        <p>Tags: <a href="{% url 'tags' 'Go' %}">Go</a> <a href="{% url 'tags' 'goroutine' %}">goroutine</a></p>
+                    </div>
+                    <p class="card-text"><small class="text-body-secondary">The question was asked 3 mins
+                        ago</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

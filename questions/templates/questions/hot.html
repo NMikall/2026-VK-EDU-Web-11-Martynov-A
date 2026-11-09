@@ -1,0 +1,15 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-md-9">
+    <div class="d-flex align-items-baseline gap-3 mb-3">
+        <a href="{% url 'index' %}">New Questions</a>
+        <h1 class="mb-0">Hot Questions</h1>
+    </div>
+    {% for question in Questions %}
+        {% include 'questions/partials/question.html' with question=question %}
+    {% endfor %}
+    {% include 'questions/partials/pagination.html' %}
+</div>
+{% endblock %}

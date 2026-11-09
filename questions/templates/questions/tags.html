@@ -1,0 +1,14 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="col-md-9">
+    <h1>Tag: {{ tag }}</h1>
+    {% for question in Questions %}
+        {% include 'questions/partials/question.html' with question=question %}
+    {% endfor %}
+    {% include 'questions/partials/pagination.html' %}
+</div>
+
+{% endblock %}

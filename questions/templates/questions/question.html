@@ -1,0 +1,52 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex align-items-stretch flex-column col-md-9">
+    <div class="card border-primary border-2 bg-light shadow-sm m-2">
+        <div class="row g-0">
+            <div class="col-md-4 d-flex flex-column align-items-center">
+                <img class="avatar" src="{% static 'questions/static/img/avatar.webp' %}" alt="avatar" width="100" height="100">
+                <div class="d-flex flex-column align-items-center gap-1">
+                    <button type="button" class="btn btn-sm btn-outline-success" aria-label="Нравится"
+                            aria-pressed="false">▲
+                    </button>
+                    <span class="fw-bold">5</span>
+                    <button type="button" class="btn btn-sm btn-outline-danger" aria-label="Не нравится"
+                            aria-pressed="false">▼
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h1 class="card-title">How to stop a running goroutine?</h1>
+                    <p class="card-text">Guys, I have a goroutine running in the background. Need to close it safely and
+                        ensure no resources are left in a broken state. What’s the recommended pattern in Go?</p>
+                    <div>
+                        <p>Tags: <a href="{% url 'tags' 'Go' %}">Go</a> <a href="{% url 'tags' 'goroutine' %}">goroutine</a></p>
+                    </div>
+                    <p class="card-text"><small class="text-body-secondary">The question was asked 3 mins ago</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 class="border-top border-dark pt-2 mx-2 mb-3">Answers (90)</h2>
+    {% for question in Questions %}
+        {% include 'questions/partials/answer.html' with question=question %}
+    {% endfor %}
+    {% include 'questions/partials/pagination.html' %}
+    <div class="card m-2">
+        <div class="card-body">
+            <form action="#" method="GET">
+                <label for="answer" class="form-label fw-semibold">Your answer</label>
+                <textarea id="answer" class="form-control mb-1" rows="4" maxlength="2000"
+                          placeholder="Enter your answer here"></textarea>
+                <div class="form-text mb-3">Answer is a maximum of 2000 characters</div>
+                <button type="submit" class="btn btn-primary">Answer</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
