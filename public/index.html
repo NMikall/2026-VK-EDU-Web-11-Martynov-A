@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="static/css/bootstrap.min.css">
         <link rel="stylesheet" href="static/css/style.css">
+        <link rel="icon" href="static/img/favicon.png">
         <title>Main - AsQa</title>
     </head>
     <body class="d-flex flex-column min-vh-100">
         <header class="container-fluid border-bottom border-dark">
-            <div class="d-flex flex-wrap justify-content-between align-items-end gap-2">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 py-2">
                 <a href="index.html" class="text-decoration-none logo">AsQa</a>
                 <form action="#" method="get">
                     <span class="position-relative">
@@ -23,7 +24,7 @@
                         </svg>
                         <input type="search" placeholder="Search">
                     </span>
-                    <button class="btn btn-primary" type="submit">Найти</button>
+                    <button class="btn btn-primary" type="submit">Find</button>
                 </form>
                 <a class="btn btn-primary" href="ask.html" role="button">Ask!</a>
                 <div>
@@ -42,7 +43,7 @@
                             <div class="card mb-3">
                                 <div class="row g-0">
                                     <div class="col-md-4 d-flex flex-column align-items-center">
-                                        <img src="static/img/avatar.webp" alt="avatar" width="100" height="100">
+                                        <img src="static/img/avatar.webp" alt="avatar" width="100" height="100" class="avatar">
                                         <div class="d-flex flex-column align-items-center gap-1">
                                             <button type="button" class="btn btn-sm btn-outline-success" aria-label="Нравится" aria-pressed="false">▲</button>
                                             <span class="fw-bold">5</span>
@@ -51,7 +52,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <a href="question.html"><h5 class="card-title">How to stop a running goroutine?</h5></a>
+                                            <a href="question.html"><h2 class="card-title h5">How to stop a running goroutine?</h2></a>
                                             <p class="card-text">Guys, I have a goroutine running in the background. Need to close it saf...</p>
                                             <div>
                                                 <a href="question.html" class="me-4">answer (3)</a>
@@ -67,7 +68,7 @@
                             <div class="card mb-3">
                                 <div class="row g-0">
                                     <div class="col-md-4 d-flex flex-column align-items-center">
-                                        <img src="static/img/avatar.webp" alt="avatar" width="100" height="100">
+                                        <img src="static/img/avatar.webp" alt="avatar" width="100" height="100" class="avatar">
                                         <div class="d-flex flex-column align-items-center gap-1">
                                             <button type="button" class="btn btn-sm btn-success" aria-label="Нравится" aria-pressed="true">▲</button>
                                             <span class="fw-bold">6</span>
@@ -76,7 +77,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <a href="question.html"><h5 class="card-title">How to stop a running goroutine?</h5></a>
+                                            <a href="question.html"><h2 class="card-title h5">How to stop a running goroutine?</h2></a>
                                             <p class="card-text">Guys, I have a goroutine running in the background. Need to close it saf...</p>
                                             <div>
                                                 <a href="question.html" class="me-4">answer (3)</a>
@@ -92,7 +93,7 @@
                             <div class="card mb-3">
                                 <div class="row g-0">
                                     <div class="col-md-4 d-flex flex-column align-items-center">
-                                        <img src="static/img/avatar.webp" alt="avatar" width="100" height="100">
+                                        <img src="static/img/avatar.webp" alt="avatar" width="100" height="100" class="avatar">
                                         <div class="d-flex flex-column align-items-center gap-1">
                                             <button type="button" class="btn btn-sm btn-outline-success" aria-label="Нравится" aria-pressed="false">▲</button>
                                             <span class="fw-bold">4</span>
@@ -101,7 +102,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <a href="question.html"><h5 class="card-title">How to stop a running goroutine?</h5></a>
+                                            <a href="question.html"><h2 class="card-title h5">How to stop a running goroutine?</h2></a>
                                             <p class="card-text">Guys, I have a goroutine running in the background. Need to close it saf...</p>
                                             <div>
                                                 <a href="question.html" class="me-4">answer (3)</a>
@@ -115,11 +116,11 @@
                         </div>
                         <nav aria-label="Pagination">
                             <ul class="pagination justify-content-center flex-wrap">
-                                <li class="page-item disabled"><a class="page-link" href="#">‹</a></li>
+                                <li class="page-item disabled"><span class="page-link">‹</span></li>
                                 <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
                                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">›</a></li>
+                                <li class="page-item"><span class="page-link">›</span></li>
                             </ul>
                         </nav>
                     </div>
@@ -149,8 +150,8 @@
         </main>
 
         <footer class="mt-auto p-2">
-            <h6>Email: asqa@mail.ru</h6>
-            <h6>Phone: +7 123 456 78 90</h6>
+            <p class="mb-0">Email: asqa@mail.ru</p>
+            <p class="mb-0">Phone: +7 123 456 78 90</p>
         </footer>
     </body>
 </html>

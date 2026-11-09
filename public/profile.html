@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="static/css/bootstrap.min.css">
         <link rel="stylesheet" href="static/css/style.css">
+        <link rel="icon" href="static/img/favicon.png">
         <title>Profile - AsQa</title>
     </head>
     <body class="d-flex flex-column min-vh-100">
         <header class="container-fluid border-bottom border-dark">
-            <div class="d-flex flex-wrap justify-content-between align-items-end gap-2">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 py-2">
                 <a href="index.html" class="text-decoration-none logo">AsQa</a>
                 <form action="#" method="get">
                     <span class="position-relative">
@@ -23,14 +24,14 @@
                         </svg>
                         <input type="search" placeholder="Search">
                     </span>
-                    <button class="btn btn-primary" type="submit">Найти</button>
+                    <button class="btn btn-primary" type="submit">Find</button>
                 </form>
                 <a class="btn btn-primary" href="ask.html" role="button">Ask!</a>
                 
                 <div class="d-flex flex-row">
                     <div>
                         <img src="static/img/avatar.webp" alt="User's photo"
-                    width="60" height="60">
+                    width="60" height="60" class="avatar">
                     </div>
                     <div class="ps-2">
                         <p>Makiato</p>
@@ -53,25 +54,25 @@
                                 Failed to save changes. Please check the fields below
                             </div>
                             <div class="input-group mb-1">
-                                <span class="input-group-text" id="login">Login:</span>
-                                <input type="text" class="form-control" placeholder="Your login" aria-label="Username" maxlength="20" aria-describedby="login" value="Vaska">
+                                <label class="input-group-text" for="login">Login:</label>
+                                <input type="text" class="form-control" placeholder="Your login" maxlength="20" id="login" value="Vaska">
                             </div>
                             <div class="form-text mb-3">Login is a maximum of 20 characters</div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="email">Email:</span>
-                                <input type="email" class="form-control is-invalid" placeholder="Your email" aria-label="email" maxlength="100" aria-describedby="email" value="example@mail.ru">
-                                <div class="invalid-feedback">You have entered an invalid email address</div>
+                                <label class="input-group-text" for="email">Email:</label>
+                                <input type="email" class="form-control is-invalid" aria-describedby="email-error" aria-invalid="true" placeholder="Your email" maxlength="100" id="email" value="example@mail.ru">
+                                <div class="invalid-feedback" id="email-error">You have entered an invalid email address</div>
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="nick">NickName:</span>
-                                <input type="text" class="form-control" placeholder="Your NickName" aria-label="nick" maxlength="20" aria-describedby="nick" value="Makiato">
+                                <label class="input-group-text" for="nick">NickName:</label>
+                                <input type="text" class="form-control" placeholder="Your NickName" maxlength="20" id="nick" value="Makiato">
                             </div>
                             <div class="form-text mb-3">NickName is a maximum of 20 characters</div>
                             <div class="mb-3">
                                 <label for="formFile" class="form-label">Upload avatar</label>
                                 <div>
                                     <img src="static/img/avatar.webp" alt="User's photo"
-                                    width="100" height="100">
+                                    width="100" height="100" class="avatar">
                                 </div>
                                 <input class="form-control" type="file" id="formFile" accept="image/*">
                             </div>
@@ -106,8 +107,8 @@
         </main>
 
         <footer class="mt-auto p-2">
-            <h6>Email: asqa@mail.ru</h6>
-            <h6>Phone: +7 123 456 78 90</h6>
+            <p class="mb-0">Email: asqa@mail.ru</p>
+            <p class="mb-0">Phone: +7 123 456 78 90</p>
         </footer>
     </body>
 </html>
