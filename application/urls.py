@@ -20,9 +20,14 @@ from django.urls import path, include
 
 import core
 import questions
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('questions.urls')),
     path('', include('core.urls')),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]

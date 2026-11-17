@@ -1,4 +1,5 @@
 {% extends 'layout/base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block content %}
@@ -11,7 +12,7 @@
                     <button type="button" class="btn btn-sm btn-outline-success" aria-label="Нравится"
                             aria-pressed="false">▲
                     </button>
-                    <span class="fw-bold">5</span>
+                    <span class="fw-bold">{{ question.likes }}</span>
                     <button type="button" class="btn btn-sm btn-outline-danger" aria-label="Не нравится"
                             aria-pressed="false">▼
                     </button>
@@ -19,21 +20,24 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h1 class="card-title">How to stop a running goroutine?</h1>
-                    <p class="card-text">Guys, I have a goroutine running in the background. Need to close it safely and
-                        ensure no resources are left in a broken state. What’s the recommended pattern in Go?</p>
+                    <h1 class="card-title">{{ question.title }}</h1>
+                    <p class="card-text">{{ question.text }}</p>
                     <div>
-                        <p>Tags: <a href="{% url 'tags' 'Go' %}">Go</a> <a href="{% url 'tags' 'goroutine' %}">goroutine</a></p>
+                        <p>Tags: {% for item in question.tags_set.all %}
+                            <a href="{% url 'tags' item.tag.name_tag %}">{{ item.tag.name_tag }}</a>
+                        {% endfor %}</p>
                     </div>
-                    <p class="card-text"><small class="text-body-secondary">The question was asked 3 mins ago</small>
+                    <p class="card-text"><small class="text-body-secondary">The question was asked {% language 'en' %}{{ question.created_at|timesince }}{% endlanguage %} ago</small>
                     </p>
                 </div>
             </div>
         </div>
     </div>
-    <h2 class="border-top border-dark pt-2 mx-2 mb-3">Answers (90)</h2>
+    <h2 class="border-top border-dark pt-2 mx-2 mb-3">Answers ({{ question.number_of_answers }})</h2>
     {% for question in Questions %}
         {% include 'questions/partials/answer.html' with question=question %}
+    {% empty %}
+        <p>No answers to this question yet</p>
     {% endfor %}
     {% include 'questions/partials/pagination.html' %}
     <div class="card m-2">

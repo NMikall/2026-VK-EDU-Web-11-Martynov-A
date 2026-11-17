@@ -1,17 +1,8 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import HttpResponse
+from questions.models import Question, Answer, Tag
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
-# Create your views here.
-
-QUESTION_LIST = [
-    {
-        'title': f'Title {i}',
-        'text': f'Text {i}' * 10,
-        'id': i,
-    } for i in range(90)
-]
 
 def paginate(objects_list, request, per_page=10):
     paginator = Paginator(objects_list, per_page)
@@ -30,20 +21,22 @@ def paginate(objects_list, request, per_page=10):
 
 
 def index(request):
-    page_obj = paginate(QUESTION_LIST, request)
+    page_obj = paginate(Question.objects.new(), request)
     return render(request, 'questions/index.html', context={'Questions': page_obj.object_list, 'page_obj': page_obj})
 
 def hot(request):
-    page_obj = paginate(QUESTION_LIST[::-1], request)
+    page_obj = paginate(Question.objects.best(), request)
     return render(request, 'questions/hot.html', context={'Questions': page_obj.object_list, 'page_obj': page_obj})
 
 def ask(request):
-    return render(request, 'questions/ask.html', context={'Questions': QUESTION_LIST[::-1]})
+    return render(request, 'questions/ask.html')
 
 def tags(request, tag_name):
-    page_obj = paginate(QUESTION_LIST, request)
+    get_object_or_404(Tag, name_tag=tag_name)
+    page_obj = paginate(Question.objects.by_tag(tag_name), request)
     return render(request, 'questions/tags.html', context={'Questions': page_obj.object_list, 'page_obj': page_obj, 'tag': tag_name})
 
 def question(request, question_id):
-    page_obj = paginate(QUESTION_LIST, request)
-    return render(request, 'questions/question.html', context={'Questions': page_obj.object_list, 'page_obj': page_obj})
+    question_cur = get_object_or_404(Question.objects.new(), pk=question_id)
+    page_obj = paginate(Answer.objects.for_question(question_id), request)
+    return render(request, 'questions/question.html', context={'question': question_cur, 'Questions': page_obj.object_list, 'page_obj': page_obj})

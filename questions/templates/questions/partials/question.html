@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 <div>
     <div class="card mb-3">
@@ -8,7 +9,7 @@
                     <button type="button" class="btn btn-sm btn-outline-success" aria-label="Нравится"
                             aria-pressed="false">▲
                     </button>
-                    <span class="fw-bold">5</span>
+                    <span class="fw-bold">{{ question.likes }}</span>
                     <button type="button" class="btn btn-sm btn-outline-danger" aria-label="Не нравится"
                             aria-pressed="false">▼
                     </button>
@@ -16,14 +17,15 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <a href="{% url 'question' question.id %}"><h2 class="card-title h5">{{ question.title }}</h2></a>
+                    <a href="{{ question.get_absolute_url }}"><h2 class="card-title h5">{{ question.title }}</h2></a>
                     <p class="card-text">{{ question.text }}</p>
                     <div>
-                        <a href="{% url 'question' question.id %}" class="me-4">answer (3)</a>
-                        <p>Tags: <a href="{% url 'tags' 'Go' %}">Go</a> <a href="{% url 'tags' 'goroutine' %}">goroutine</a></p>
+                        <a href="{{ question.get_absolute_url }}" class="me-4">answer ({{ question.number_of_answers }})</a>
+                        <p>Tags: {% for item in question.tags_set.all %}
+                            <a href="{% url 'tags' item.tag.name_tag %}">{{ item.tag.name_tag }}</a>
+                        {% endfor %}</p>
                     </div>
-                    <p class="card-text"><small class="text-body-secondary">The question was asked 3 mins
-                        ago</small></p>
+                    <p class="card-text"><small class="text-body-secondary">The question was asked {% language 'en' %}{{ question.created_at|timesince }}{% endlanguage %} ago</small></p>
                 </div>
             </div>
         </div>
