@@ -1,0 +1,28 @@
+.logo {
+    color: #0d6efd;
+    font-size: 2.5rem;
+}
+
+main {
+    min-height: 60vh;
+    background-color: #f5f6f8;
+}
+
+header {
+    background-color: #ffffff;
+}
+
+footer {
+    background-color: #e9ecef;
+}
+
+input[type="search"] {
+    padding-left: 28px;
+    border-radius: 15px;
+    border: 1px solid #adb5bd;
+    width: clamp(200px, 40vw, 650px);
+}
+
+.avatar {
+    object-fit: cover;
+}
