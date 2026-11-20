@@ -4,29 +4,42 @@
 {% block content %}
 <div class="col-md-9">
     <h1>New Question</h1>
-    <form action="#" method="GET">
-        <div class="alert alert-danger" role="alert">
-            The request could not be sent.
-        </div>
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+    <form action="" method="POST">
+        {% csrf_token %}
         <div class="input-group mb-1">
             <label class="input-group-text" for="title">Title:</label>
-            <input type="text" id="title" class="form-control" maxlength="100" placeholder="Your title" required>
+            <input type="text" name="title" value="{{ form.title.value|default:'' }}" class="form-control {% if form.title.errors %} is-invalid {% endif %}"
+                   {% if form.title.errors %} aria-invalid="true" aria-describedby="title-error" {% endif %}
+                   placeholder="Your title" maxlength="100" id="title" required>
+            {% if form.title.errors %}
+                <p class="invalid-feedback" id="title-error">{{ form.title.errors }}</p>
+            {% endif %}
         </div>
-        <div class="form-text mb-3">Title is a maximum of 100 characters</div>
-        <div class="input-group mb-1">
-            <label class="input-group-text" for="text">Text:</label>
-            <textarea class="form-control" placeholder="Your text" maxlength="2000" id="text" required></textarea>
-        </div>
-        <div class="form-text mb-3">Text is a maximum of 2000 characters</div>
+        <label for="question" class="form-label fw-semibold">Your question</label>
+        <textarea id="question" name="text" class="form-control mb-1 {% if form.text.errors %} is-invalid {% endif %}"
+                  rows="4" maxlength="2000" placeholder="Enter your question here"
+                  {% if form.text.errors %} aria-invalid="true" aria-describedby="question-error" {% endif %}
+                  required>{{ form.text.value|default:'' }}</textarea>
+        {% if form.text.errors %}
+        <p class="invalid-feedback" id="question-error">{{ form.text.errors }}</p>
+        {% endif %}
         <div class="input-group mb-1">
             <label class="input-group-text" for="tags">Tags:</label>
-            <input type="text" class="form-control is-invalid" maxlength="100" aria-describedby="tags-error"
-                   aria-invalid="true" placeholder="Tags. Example: moon, park, cool" id="tags" required>
-            <div class="invalid-feedback" id="tags-error">no more than 3 tags</div>
+            <input type="text" name="tags" value="{{ form.tags.value|default:'' }}" class="form-control {% if form.tags.errors %} is-invalid {% endif %}"
+                   {% if form.tags.errors %} aria-invalid="true" aria-describedby="tags-error" {% endif %}
+                   placeholder="Your tags in format: tag1, tag2, tag3" maxlength="100" id="tags" required>
+            {% if form.tags.errors %}
+                <p class="invalid-feedback" id="tags-error">{{ form.tags.errors }}</p>
+            {% endif %}
         </div>
-        <div class="form-text mb-3">Tags are a maximum of 100 characters</div>
         <div>
-            <input class="btn btn-primary" type="submit" value="Ask!">
+            <input class="btn btn-primary" type="submit" value="Ask!"
+                   {% if not user.is_authenticated %} disabled title="Log in to ask a question" {% endif %}>
         </div>
     </form>
 </div>

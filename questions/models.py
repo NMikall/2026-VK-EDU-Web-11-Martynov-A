@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Q, F
 from django.urls import reverse
+
+
 
 class DefaultModel(models.Model):
     is_active = models.BooleanField(default=True, verbose_name="Активен")
@@ -12,18 +15,25 @@ class DefaultModel(models.Model):
 
 class QuestionManager(models.Manager):
     def new(self):
-        return self.filter(is_active=True).order_by('-created_at').select_related('user').prefetch_related('tags_set__tag')
+        return self.filter(is_active=True).order_by('-created_at').select_related('user__profile').prefetch_related('tags_set__tag')
 
     def best(self):
-        return self.filter(is_active=True).order_by('-likes', '-id').select_related('user').prefetch_related('tags_set__tag')
+        return self.filter(is_active=True).order_by('-likes', '-id').select_related('user__profile').prefetch_related('tags_set__tag')
 
     def by_tag(self, tag_name):
         return self.new().filter(tags__tag__name_tag=tag_name)
 
+    def search(self, query):
+        return self.new().filter(Q(title__icontains=query) | Q(text__icontains=query))
+
 class AnswerManager(models.Manager):
     def for_question(self, question_id):
-        return self.filter(question_id=question_id, is_active=True).order_by('-likes', '-id')
+        return self.filter(question_id=question_id, is_active=True).order_by('-likes', '-id').select_related('user__profile')
 
+    def page_of(self, answer, per_page=10):
+        answers = self.filter(question_id=answer.question_id, is_active=True)
+        before = answers.filter(likes__gt=answer.likes).count() + answers.filter(likes=answer.likes, id__gt=answer.id).count()
+        return before // per_page + 1
 
 class Question(DefaultModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
@@ -42,6 +52,17 @@ class Question(DefaultModel):
     def get_absolute_url(self):
         return reverse('question', args=[self.pk])
 
+    def vote(self, user, is_like):
+        like = QuestionLike.objects.filter(user=user, question=self).first()
+        if like is None:
+            QuestionLike.objects.create(user=user, question=self, like_or_dislike=is_like)
+            Question.objects.filter(pk=self.pk).update(likes=F('likes') + (1 if is_like else -1))
+        elif like.like_or_dislike != is_like:
+            like.delete()
+            Question.objects.filter(pk=self.pk).update(likes=F('likes') + (1 if is_like else -1))
+        self.refresh_from_db(fields=['likes'])
+        return self.likes
+
 class Answer(DefaultModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
     question = models.ForeignKey(Question, on_delete=models.CASCADE, verbose_name="Вопрос")
@@ -56,6 +77,25 @@ class Answer(DefaultModel):
 
     def __str__(self):
         return f"Ответ #{self.pk}: `{self.text}`"
+
+    def vote(self, user, is_like):
+        like = AnswerLike.objects.filter(user=user, answer=self).first()
+        if like is None:
+            AnswerLike.objects.create(user=user, answer=self, like_or_dislike=is_like)
+            Answer.objects.filter(pk=self.pk).update(likes=F('likes') + (1 if is_like else -1))
+        elif like.like_or_dislike != is_like:
+            like.delete()
+            Answer.objects.filter(pk=self.pk).update(likes=F('likes') + (1 if is_like else -1))
+        self.refresh_from_db(fields=['likes'])
+        return self.likes
+
+    def answer_best(self, user):
+        if self.question.user_id != user.id:
+            return False
+        new_value = not self.best_answer
+        Answer.objects.filter(question_id=self.question_id).update(best_answer=False)
+        Answer.objects.filter(pk=self.pk).update(best_answer=new_value)
+        return True
 
 class Tag(models.Model):
     name_tag = models.CharField(max_length=100, verbose_name="Имя тега")

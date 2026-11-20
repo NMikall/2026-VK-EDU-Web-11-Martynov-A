@@ -3,35 +3,53 @@
 
 {% block content %}
 <div class="col-md-9">
-    <h1>Settings: UserName</h1>
-    <form action="#" method="GET">
+    <h1>Settings: {{ user.username }}</h1>
+    {% if user_form.non_field_errors or profile_form.non_field_errors %}
         <div class="alert alert-danger" role="alert">
-            Failed to save changes. Please check the fields below
+            {{ user_form.non_field_errors }}
+            {{ profile_form.non_field_errors }}
         </div>
+    {% endif %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
         <div class="input-group mb-1">
             <label class="input-group-text" for="login">Login:</label>
-            <input type="text" class="form-control" placeholder="Your login" maxlength="20" id="login" value="Vaska">
+            <input type="text" name="username" value="{{ user_form.username.value|default:'' }}" class="form-control {% if user_form.username.errors %} is-invalid{% endif %}"
+                   {% if user_form.username.errors %} aria-invalid="true" aria-describedby="login-error"{% endif %}
+                   placeholder="Your login" maxlength="20" id="login" required>
+            {% if user_form.username.errors %}
+                <p class="invalid-feedback" id="login-error">{{ user_form.username.errors }}</p>
+            {% endif %}
         </div>
-        <div class="form-text mb-3">Login is a maximum of 20 characters</div>
-        <div class="input-group mb-3">
+        <div class="input-group mb-1">
             <label class="input-group-text" for="email">Email:</label>
-            <input type="email" class="form-control is-invalid" aria-describedby="email-error" aria-invalid="true"
-                   placeholder="Your email" maxlength="100" id="email" value="example@mail.ru">
-            <div class="invalid-feedback" id="email-error">You have entered an invalid email address</div>
+            <input type="email" name="email" value="{{ user_form.email.value|default:'' }}" class="form-control {% if user_form.email.errors %} is-invalid{% endif %}"
+                   {% if user_form.email.errors %} aria-invalid="true" aria-describedby="email-error"{% endif %}
+                   placeholder="Your email" maxlength="50" id="email" required>
+            {% if user_form.email.errors %}
+                <p class="invalid-feedback" id="email-error">{{ user_form.email.errors }}</p>
+            {% endif %}
         </div>
-        <div class="input-group mb-3">
-            <label class="input-group-text" for="nick">NickName:</label>
-            <input type="text" class="form-control" placeholder="Your NickName" maxlength="20" id="nick"
-                   value="Makiato">
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="nickname">Nickname:</label>
+            <input type="text" value="{{ profile_form.nickname.value|default:'' }}" name="nickname" class="form-control {% if profile_form.nickname.errors %} is-invalid{% endif %}"
+                   {% if profile_form.nickname.errors %} aria-invalid="true" aria-describedby="nickname-error"{% endif %}
+                   placeholder="Your nickname" maxlength="20" id="nickname" required>
+            {% if profile_form.nickname.errors %}
+                <p class="invalid-feedback" id="nickname-error">{{ profile_form.nickname.errors }}</p>
+            {% endif %}
         </div>
-        <div class="form-text mb-3">NickName is a maximum of 20 characters</div>
         <div class="mb-3">
-            <label for="formFile" class="form-label">Upload avatar</label>
+            <label for="avatar" class="form-label">Upload avatar</label>
             <div>
-                <img src="{% static 'questions/static/img/avatar.webp' %}" alt="User's photo"
+                <img src="{{ user.profile.avatar.url }}" alt="User's photo"
                      width="100" height="100" class="avatar">
             </div>
-            <input class="form-control" type="file" id="formFile" accept="image/*">
+            <input class="form-control {% if profile_form.avatar.errors %} is-invalid{% endif %}" type="file" name="avatar" id="avatar" accept="image/*"
+                   {% if profile_form.avatar.errors %} aria-invalid="true" aria-describedby="avatar-error"{% endif %}>
+            {% if profile_form.avatar.errors %}
+                <p class="invalid-feedback" id="avatar-error">{{ profile_form.avatar.errors }}</p>
+            {% endif %}
         </div>
         <div>
             <input class="btn btn-primary" type="submit" value="Save">

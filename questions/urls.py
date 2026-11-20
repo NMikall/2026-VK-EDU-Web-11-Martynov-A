@@ -23,4 +23,8 @@ urlpatterns = [
     path('ask/', views.ask, name='ask'),
     path('question/<int:question_id>/', views.question, name='question'),
     path('tag/<str:tag_name>/', views.tags, name='tags'),
+    path('search/', views.search, name='search'),
+    path('like/question/<int:question_id>/<str:vote_type>/', views.like_question, name='like_question'),
+    path('like/answer/<int:answer_id>/<str:vote_type>/', views.like_answer, name='like_answer'),
+    path('best/<int:question_id>/<int:answer_id>/', views.best_answer, name='best_answer'),
 ]
