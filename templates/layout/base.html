@@ -35,7 +35,7 @@
                             <img class="avatar" src="{{ user.profile.avatar.url }}" alt="User's photo"
                                  width="60" height="60">
                         </div>
-                        <div class="ps-2">
+                        <div class="ps-2 move">
                             <p>{{ user.profile.nickname }}</p>
                         <div>
                             <a href="{% url 'profile' %}" class="me-4">settings</a>
@@ -59,7 +59,7 @@
                     {% endblock %}
                     <aside class="col-md-3">
                         <div>
-                            <h2>Popular tags</h2>
+                            <h2 class="move">Popular tags</h2>
                             <ul>
                                 <li><a href="{% url 'tags' 'Python' %}">Python</a></li>
                                 <li><a href="{% url 'tags' 'C++' %}">C++</a></li>
@@ -68,7 +68,7 @@
                             </ul>
                         </div>
                         <div>
-                            <h2>Best members</h2>
+                            <h2 class="move">Best members</h2>
                             <ul>
                                 <li><a href="#">Vasya Pupkin</a></li>
                                 <li><a href="#">Vas Pup</a></li>

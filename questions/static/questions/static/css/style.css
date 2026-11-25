@@ -26,3 +26,7 @@ input[type="search"] {
 .avatar {
     object-fit: cover;
 }
+
+.move {
+    overflow-wrap: anywhere;
+}
