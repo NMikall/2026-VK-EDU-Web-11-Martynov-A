@@ -15,12 +15,8 @@ def paginate(objects_list, request, per_page=10):
     try:
         page_obj = paginator.page(page_number)
         return page_obj
-    except PageNotAnInteger:
+    except (PageNotAnInteger, EmptyPage):
         page_number = 1
-        page_obj = paginator.page(page_number)
-        return page_obj
-    except EmptyPage:
-        page_number = paginator.num_pages
         page_obj = paginator.page(page_number)
         return page_obj
 
