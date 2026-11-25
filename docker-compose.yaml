@@ -8,7 +8,8 @@ services:
       - .:/application
       - ./media:/application/media
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
     image: postgres:17
@@ -17,6 +18,8 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -h 127.0.0.1
 
 volumes:
   postgres_data:
