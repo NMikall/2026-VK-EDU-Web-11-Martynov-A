@@ -1,0 +1,35 @@
+{% load i18n %}
+{% load static %}
+<div>
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4 d-flex flex-column align-items-center">
+                <img class="avatar" src="{{ question.user.profile.avatar.url }}" alt="avatar" width="100" height="100">
+                <div class="d-flex flex-column align-items-center gap-1">
+                    <button type="button" class="btn btn-sm btn-outline-success" aria-label="Нравится"
+                            aria-pressed="false" {% if not user.is_authenticated %} disabled title="Log in to like" {% endif %}
+                            data-id="{{ question.id }}" data-kind="question" data-type="like">▲
+                    </button>
+                    <span class="fw-bold" data-like-counter="question-{{ question.id }}">{{ question.likes }}</span>
+                    <button type="button" class="btn btn-sm btn-outline-danger" aria-label="Не нравится"
+                            aria-pressed="false" {% if not user.is_authenticated %} disabled title="Log in to dislike" {% endif %}
+                            data-id="{{ question.id }}" data-kind="question" data-type="dislike">▼
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <a href="{{ question.get_absolute_url }}"><h2 class="card-title h5">{{ question.title }}</h2></a>
+                    <p class="card-text">{{ question.text }}</p>
+                    <div>
+                        <a href="{{ question.get_absolute_url }}" class="me-4">answer ({{ question.number_of_answers }})</a>
+                        <p>Tags: {% for item in question.tags_set.all %}
+                            <a href="{% url 'tags' item.tag.name_tag %}">{{ item.tag.name_tag }}</a>
+                        {% endfor %}</p>
+                    </div>
+                    <p class="card-text"><small class="text-body-secondary">The question was asked {% language 'en' %}{{ question.created_at|timesince }}{% endlanguage %} ago</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

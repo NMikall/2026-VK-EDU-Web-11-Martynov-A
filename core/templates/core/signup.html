@@ -1,0 +1,81 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-md-9">
+    <h1>Registration</h1>
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger" role="alert">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="login">Login:</label>
+            <input type="text" name="username" value="{{ form.username.value|default:'' }}" class="form-control {% if form.username.errors %} is-invalid{% endif %}"
+                   {% if form.username.errors %} aria-invalid="true" aria-describedby="login-error"{% endif %}
+                   placeholder="Your login" maxlength="20" id="login" required>
+            {% if form.username.errors %}
+                <p class="invalid-feedback" id="login-error">{{ form.username.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="email">Email:</label>
+            <input type="email" name="email" value="{{ form.email.value|default:'' }}" class="form-control {% if form.email.errors %} is-invalid{% endif %}"
+                   {% if form.email.errors %} aria-invalid="true" aria-describedby="email-error"{% endif %}
+                   placeholder="Your email" maxlength="50" id="email" required>
+            {% if form.email.errors %}
+                <p class="invalid-feedback" id="email-error">{{ form.email.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="nickname">Nickname:</label>
+            <input type="text" value="{{ form.nickname.value|default:'' }}" name="nickname" class="form-control {% if form.nickname.errors %} is-invalid{% endif %}"
+                   {% if form.nickname.errors %} aria-invalid="true" aria-describedby="nickname-error"{% endif %}
+                   placeholder="Your nickname" maxlength="20" id="nickname" required>
+            {% if form.nickname.errors %}
+                <p class="invalid-feedback" id="nickname-error">{{ form.nickname.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="password">Password:</label>
+            <input type="password" name="password" class="form-control {% if form.password.errors %} is-invalid {% endif %}"
+                   {% if form.password.errors %} aria-invalid="true" aria-describedby="password-error"{% endif %}
+                   placeholder="Your password" maxlength="50" id="password" required>
+            {% if form.password.errors %}
+                <p class="invalid-feedback" id="password-error">{{ form.password.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="repeat_password">Password:</label>
+            <input type="password" name="repeat_password" class="form-control {% if form.repeat_password.errors %} is-invalid {% endif %}"
+                   {% if form.repeat_password.errors %} aria-invalid="true" aria-describedby="repeat_password-error"{% endif %}
+                   placeholder="Your repeat_password" maxlength="50" id="repeat_password" required>
+            {% if form.repeat_password.errors %}
+                <p class="invalid-feedback" id="repeat_password-error">{{ form.repeat_password.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="avatar" class="form-label">Upload avatar</label>
+            <div>
+                <img src="{{ user.profile.avatar.url }}" alt="User's photo"
+                     width="100" height="100" class="avatar">
+            </div>
+            <input class="form-control {% if form.avatar.errors %} is-invalid{% endif %}" type="file" name="avatar" id="avatar" accept="image/*"
+                   {% if form.avatar.errors %} aria-invalid="true" aria-describedby="avatar-error"{% endif %}>
+            {% if form.avatar.errors %}
+                <p class="invalid-feedback" id="avatar-error">{{ form.avatar.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <input class="btn btn-primary" type="submit" value="Register!">
+        </div>
+        <div>
+            <h3>If you have an account</h3>
+            <a href="{% url 'login' %}"><h5>Log in</h5></a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

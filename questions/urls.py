@@ -1,0 +1,30 @@
+"""
+URL configuration for application project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/6.1/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.urls import path
+from questions import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('hot/', views.hot, name='hot'),
+    path('ask/', views.ask, name='ask'),
+    path('question/<int:question_id>/', views.question, name='question'),
+    path('tag/<str:tag_name>/', views.tags, name='tags'),
+    path('search/', views.search, name='search'),
+    path('like/question/<int:question_id>/<str:vote_type>/', views.like_question, name='like_question'),
+    path('like/answer/<int:answer_id>/<str:vote_type>/', views.like_answer, name='like_answer'),
+    path('best/<int:question_id>/<int:answer_id>/', views.best_answer, name='best_answer'),
+]

@@ -1,0 +1,41 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-md-9">
+    <h1>Log In</h1>
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger" role="alert">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="login">Login:</label>
+            <input type="text" value="{{ form.username.value|default:'' }}" name="username" class="form-control {% if form.username.errors %} is-invalid{% endif %}"
+                   {% if form.username.errors %} aria-invalid="true" aria-describedby="login-error"{% endif %}
+                   placeholder="Your login" maxlength="20" id="login" required>
+            {% if form.username.errors %}
+                <p class="invalid-feedback" id="login-error">{{ form.username.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="password">Password:</label>
+            <input type="password" name="password" class="form-control {% if form.password.errors %} is-invalid {% endif %}"
+                   {% if form.password.errors %} aria-invalid="true" aria-describedby="password-error"{% endif %}
+                   placeholder="Your password" maxlength="50" id="password" required>
+            {% if form.password.errors %}
+                <p class="invalid-feedback" id="password-error">{{ form.password.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <input class="btn btn-primary" type="submit" value="Log in!">
+        </div>
+        <div>
+            <h3>Don't have account? </h3>
+            <a href="{% url 'signup' %}"><h5>create new account</h5></a>
+        </div>
+    </form>
+</div>
+{% endblock %}
